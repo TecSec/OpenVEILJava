@@ -1,5 +1,3 @@
-package com.tecsec.OpenVEIL;
-
 //	Copyright (c) 2015, TecSec, Inc.
 //
 //	Redistribution and use in source and binary forms, with or without
@@ -29,28 +27,48 @@ package com.tecsec.OpenVEIL;
 //	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+#pragma once
+#include <jni.h>
+#include "com_tecsec_OpenVEIL_Favorite.h"
+#include "OpenVEIL.h"
+#include "handle.h"
 
-public abstract class Connector
+class Session;
+
+class Favorite
 {
-	public abstract ConnectionStatus connectToServer(String url, String username, String password);
-	public abstract void disconnect();
-	public abstract boolean isConnected();
-	public abstract boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
-	public abstract void terminate();
+public:
+	Favorite();
+	Favorite(std::shared_ptr<IFavorite> _fav);
+	~Favorite();
 
-	private long handle;
+	void release();
 
-	public Connector()
+	tsAscii getFavoriteId();
+	void setFavoriteId(const tsAscii& setTo);
+
+	tsAscii getEnterpriseId();
+	void setEnterpriseId(const tsAscii& setTo);
+
+	tsAscii getFavoriteName();
+	void setFavoriteName(const tsAscii& setTo);
+
+	tsData getTokenSerialNumber();
+	void setTokenSerialNumber(const tsData& setTo);
+
+	tsData headerData();
+	void headerData(const tsData& setTo);
+
+	bool encryptFile(Session* session, const tsAscii& sourceFile, bool compress, const tsAscii& encryptedFile);
+	tsData encryptData(Session* session, const tsData& sourceData, bool compress);
+
+	std::shared_ptr<IFavorite> handle() { return _dataHolder; }
+protected:
+	std::shared_ptr<IFavorite> _dataHolder;
+
+	bool isReady()
 	{
+		return !!_dataHolder;
 	}
-	//
-	// Load DLL (or shared library) which contains implementation of native methods
-	//
-	static
-	{
-		System.loadLibrary("OpenVEILjavaWrapper");
-	}
-	
-}
+};
+

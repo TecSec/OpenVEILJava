@@ -1,5 +1,3 @@
-package com.tecsec.OpenVEIL;
-
 //	Copyright (c) 2015, TecSec, Inc.
 //
 //	Redistribution and use in source and binary forms, with or without
@@ -29,22 +27,32 @@ package com.tecsec.OpenVEIL;
 //	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+package com.tecsec.OpenVEIL;
 
-public abstract class Connector
+public class Token
 {
-	public abstract ConnectionStatus connectToServer(String url, String username, String password);
-	public abstract void disconnect();
-	public abstract boolean isConnected();
-	public abstract boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
-	public abstract void terminate();
+	public native void release();
+	public native String getTokenName();
+	public native void setTokenName(String setTo);
+	public native byte[] getSerialNumber();
+	public native String getId();
+	public native String getEnterpriseName();
+	public native String getMemberName();
+	public native String getTokenType();
+	public native String getEnterpriseId();
+	public native String getMemberId();
+	public native Session openSession();
+	
+	private native void initialize();
+	public native void terminate();
+
+	public Token()
+	{
+		initialize();
+	}
 
 	private long handle;
 
-	public Connector()
-	{
-	}
 	//
 	// Load DLL (or shared library) which contains implementation of native methods
 	//

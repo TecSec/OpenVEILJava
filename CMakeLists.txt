@@ -71,21 +71,48 @@ get_target_property(_jarFile com.tecsec.OpenVEIL JAR_FILE)
 
 
 add_subdirectory(OpenVEILWrapper)
+add_subdirectory(Samples)
 
 summary()
 
 CopyImportTargetBinaries(OpenVEILCore ${BIN_DIR})
+CopyImportTargetBinaries(CmsHeader ${BIN_DIR})
+CopyImportTargetBinaries(FileVEILSupport ${BIN_DIR})
 install_jar(com.tecsec.OpenVEIL ${BIN_DIR})
 
 add_custom_command(
 	OUTPUT
 		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_Connector.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_GenericConnector.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_KeyVEILConnector.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_Session.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_Token.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_Environment.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_Favorite.h
+		${CMAKE_CURRENT_BINARY_DIR}/com_tecsec_OpenVEIL_LoginStatus.h
 	WORKING_DIRECTORY
 		${CMAKE_CURRENT_SOURCE_DIR}
 	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.Connector
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.GenericConnector
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.KeyVEILConnector
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.Session
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.Token
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.Environment
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.Favorite
+	COMMAND ${Java_JAVAH_EXECUTABLE} -d ${CMAKE_CURRENT_BINARY_DIR} -jni com.tecsec.OpenVEIL.LoginStatus
 )
 
-add_custom_target(GenJNIHeader ALL SOURCES com_tecsec_OpenVEIL_Connector.h ${JNI_SOURCES} DEPENDS com.tecsec.OpenVEIL
+add_custom_target(GenJNIHeader ALL SOURCES 
+	com_tecsec_OpenVEIL_Connector.h 
+	com_tecsec_OpenVEIL_GenericConnector.h 
+	com_tecsec_OpenVEIL_KeyVEILConnector.h 
+	com_tecsec_OpenVEIL_Session.h 
+	com_tecsec_OpenVEIL_Token.h 
+	com_tecsec_OpenVEIL_Environment.h 
+	com_tecsec_OpenVEIL_Favorite.h 
+	com_tecsec_OpenVEIL_LoginStatus.h 
+	${JNI_SOURCES} 
+	DEPENDS com.tecsec.OpenVEIL
 )
 
 #install_jni_symlink(com.tecsec.OpenVEIL ${JAVA_LIB_INSTALL_DIR})

@@ -29,6 +29,7 @@
 //
 
 
+#pragma once
 #ifndef __HANDLE_H__
 #define __HANDLE_H__
 
@@ -82,6 +83,13 @@ void setHandle(JNIEnv *env, jobject obj, T *t)
 	env->SetLongField(obj, getHandleField(env, obj), handle);
 }
 
+extern tsAscii jstringToTsAscii(JNIEnv* env, jstring str);
+extern jstring tsAsciiToJstring(JNIEnv* env, const tsAscii& str);
+extern jbyteArray tsDataToJbyteArray(JNIEnv* env, const tsData& value);
+extern tsData jbyteArrayToTsData(JNIEnv* env, jbyteArray value);
+extern void ThrowJNIException(const char* pzFile, int iLine, const char* pzMessage);
+
+
 inline jboolean getBool(JNIEnv *env, jobject obj, const char* name)
 {
 	return env->GetBooleanField(obj, getField(env, obj, name, "Z"));
@@ -116,5 +124,17 @@ inline void setString(JNIEnv *env, jobject obj, const char* name, const tsAscii&
 	if (val != nullptr)
 		env->SetObjectField(obj, getField(env, obj, name, "Ljava/lang/String;"), val);
 }
+inline tsData getJByteArray(JNIEnv *env, jobject obj, const char* name)
+{
+	return jbyteArrayToTsData(env, (jbyteArray)env->GetObjectField(obj, getField(env, obj, name, "[B")));
+}
+inline void setJByteArray(JNIEnv *env, jobject obj, const char* name, const tsData& setTo)
+{
+	jbyteArray val = tsDataToJbyteArray(env, setTo);
+	if (val != nullptr)
+		env->SetObjectField(obj, getField(env, obj, name, "[B"), val);
+}
+
+#define THROW_JAVA_EXCEPTION(_INFO_) ThrowJNIException(__FILE__,__LINE__, _INFO_)
 
 #endif // __HANDLE_H__

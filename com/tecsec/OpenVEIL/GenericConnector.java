@@ -1,5 +1,3 @@
-package com.tecsec.OpenVEIL;
-
 //	Copyright (c) 2015, TecSec, Inc.
 //
 //	Redistribution and use in source and binary forms, with or without
@@ -29,21 +27,22 @@ package com.tecsec.OpenVEIL;
 //	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+package com.tecsec.OpenVEIL;
 
-public abstract class Connector
+public class GenericConnector extends Connector
 {
-	public abstract ConnectionStatus connectToServer(String url, String username, String password);
-	public abstract void disconnect();
-	public abstract boolean isConnected();
-	public abstract boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
-	public abstract void terminate();
+	public native ConnectionStatus connectToServer(String url, String username, String password);
+	public native void disconnect();
+	public native boolean isConnected();
+	public native boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
+	public native boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
+	public native boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
+	private native void initialize();
+	public native void terminate();
 
-	private long handle;
-
-	public Connector()
+	public GenericConnector()
 	{
+		initialize();
 	}
 	//
 	// Load DLL (or shared library) which contains implementation of native methods

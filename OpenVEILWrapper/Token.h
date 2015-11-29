@@ -1,5 +1,3 @@
-package com.tecsec.OpenVEIL;
-
 //	Copyright (c) 2015, TecSec, Inc.
 //
 //	Redistribution and use in source and binary forms, with or without
@@ -29,28 +27,41 @@ package com.tecsec.OpenVEIL;
 //	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+#pragma once
+#include <jni.h>
+#include "com_tecsec_OpenVEIL_Token.h"
+#include "OpenVEIL.h"
+#include "handle.h"
+#include "Session.h"
 
-public abstract class Connector
+class Token
 {
-	public abstract ConnectionStatus connectToServer(String url, String username, String password);
-	public abstract void disconnect();
-	public abstract boolean isConnected();
-	public abstract boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
-	public abstract void terminate();
+public:
+	Token();
+	Token(std::shared_ptr<IToken> _tok);
+	virtual ~Token();
 
-	private long handle;
+	void release();
 
-	public Connector()
+	tsAscii getTokenName();
+	bool setTokenName(const tsAscii& setTo);
+	tsData serialNumber();
+	tsAscii id();
+	tsAscii enterpriseName();
+	tsAscii memberName();
+	tsAscii tokenType();
+	tsAscii enterpriseId();
+	tsAscii memberId();
+
+	Session* openSession();
+
+
+	std::shared_ptr<IToken> handle() { return _dataHolder; }
+protected:
+	std::shared_ptr<IToken> _dataHolder;
+
+	bool isReady()
 	{
+		return !!_dataHolder;
 	}
-	//
-	// Load DLL (or shared library) which contains implementation of native methods
-	//
-	static
-	{
-		System.loadLibrary("OpenVEILjavaWrapper");
-	}
-	
-}
+};

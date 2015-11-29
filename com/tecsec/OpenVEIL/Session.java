@@ -1,5 +1,3 @@
-package com.tecsec.OpenVEIL;
-
 //	Copyright (c) 2015, TecSec, Inc.
 //
 //	Redistribution and use in source and binary forms, with or without
@@ -29,22 +27,37 @@ package com.tecsec.OpenVEIL;
 //	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+package com.tecsec.OpenVEIL;
 
-public abstract class Connector
+public class Session
 {
-	public abstract ConnectionStatus connectToServer(String url, String username, String password);
-	public abstract void disconnect();
-	public abstract boolean isConnected();
-	public abstract boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
-	public abstract void terminate();
+	public native void release();
+	public native void close();
+	public native LoginStatus login(String pin);
+	public native boolean getIsLoggedIn();
+	public native boolean logout();
+	//boolean GenerateWorkingKey(Asn1::CTS::CkmCombineParameters& params, std::function<bool(Asn1::CTS::CkmCombineParameters&, tsData&)> headerCallback, tsData &WorkingKey);
+	//boolean RegenerateWorkingKey(Asn1::CTS::CkmCombineParameters& params, tsData &WorkingKey);
+	public native String getProfile();
+	public native boolean getIsLocked();
+	public native int getRetriesLeft();
+	public native boolean getIsValid();
+	public native Session duplicate();
+	public native boolean encryptFileUsingFavorite(Favorite fav, String sourceFile, boolean compress, String encryptedFile);
+	public native boolean decryptFile(String encryptedFile, String decryptedFile);
+	public native byte[] encryptDataUsingFavorite(Favorite fav, byte[] sourceData, boolean compress);
+	public native byte[] decryptData(byte[] encryptedData);
+	
+	private native void initialize();
+	public native void terminate();
+
+	public Session()
+	{
+		initialize();
+	}
 
 	private long handle;
 
-	public Connector()
-	{
-	}
 	//
 	// Load DLL (or shared library) which contains implementation of native methods
 	//

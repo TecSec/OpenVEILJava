@@ -1,5 +1,3 @@
-package com.tecsec.OpenVEIL;
-
 //	Copyright (c) 2015, TecSec, Inc.
 //
 //	Redistribution and use in source and binary forms, with or without
@@ -29,22 +27,34 @@ package com.tecsec.OpenVEIL;
 //	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+package com.tecsec.OpenVEIL;
 
-public abstract class Connector
+public class Favorite
 {
-	public abstract ConnectionStatus connectToServer(String url, String username, String password);
-	public abstract void disconnect();
-	public abstract boolean isConnected();
-	public abstract boolean sendJsonRequest(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendBase64Request(String verb, String cmd, String inData, RequestResults results);
-	public abstract boolean sendRequest(String verb, String cmd, byte[] inData, RequestResultsBinary results);
-	public abstract void terminate();
+	public native void release();
+	public native String getFavoriteId();
+	public native void setFavoriteId(String setTo);
+	public native String getEnterpriseId();
+	public native void setEnterpriseId(String setTo);
+	public native String getFavoriteName();
+	public native void setFavoriteName(String setTo);
+	public native byte[] getTokenSerialNumber();
+	public native void setTokenSerialNumber(byte[] setTo);
+	public native byte[] getHeaderData();
+	public native void setHeaderData(byte[] setTo);
+	public native boolean encryptFile(Session session, String sourceFile, boolean compress, String encryptedFile);
+	public native byte[] encryptData(Session session, byte[] sourceData, boolean compress);
+	
+	private native void initialize();
+	public native void terminate();
+
+	public Favorite()
+	{
+		initialize();
+	}
 
 	private long handle;
 
-	public Connector()
-	{
-	}
 	//
 	// Load DLL (or shared library) which contains implementation of native methods
 	//
