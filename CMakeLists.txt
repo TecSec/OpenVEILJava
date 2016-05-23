@@ -11,12 +11,12 @@ project(OpenVEILjavaWrapper C CXX)
 
 IF(WIN32)
 	if(MSVC_IDE)
-		set(TS_INSTALL_PREFIX       "c:/TecSec/OpenVEIL_7-0")
+		set(TS_INSTALL_PREFIX       "c:/TecSec/VEIL_7-0")
 	else(MSVC_IDE)
-		set(TS_INSTALL_PREFIX       "c:/TecSec/OpenVEIL_7-0")
+		set(TS_INSTALL_PREFIX       "c:/TecSec/VEIL_7-0")
 	endif(MSVC_IDE)
-	set(TS_INSTALL_PREFIX_DEBUG   "c:/TecSec/OpenVEIL_7-0")
-	set(TS_INSTALL_PREFIX_RELEASE "c:/TecSec/OpenVEIL_7-0")
+	set(TS_INSTALL_PREFIX_DEBUG   "c:/TecSec/VEIL_7-0")
+	set(TS_INSTALL_PREFIX_RELEASE "c:/TecSec/VEIL_7-0")
 ELSE(WIN32)
 	SET(TS_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/../local" CACHE STRING "The install path to use for Linux")
 ENDIF(WIN32)
@@ -29,7 +29,7 @@ set(TS_INSTALL_PREFIX ${TS_INSTALL_PREFIX}/${TS_TOOLSET})
 include (tecsec_installdirs)
 
 include(summary)
-include(${ALLBIN_DIR}/OpenVEILVersion.cmake)
+include(${ALLBIN_DIR}/VEILApiVersion.cmake)
 
 set(CMAKE_BUILD_TYPE ${TS_VS_CONFIG} CACHE STRING "The configuration build type")
 if (CMAKE_CONFIGURATION_TYPES)
@@ -75,9 +75,9 @@ add_subdirectory(Samples)
 
 summary()
 
-CopyImportTargetBinaries(OpenVEILCore ${BIN_DIR})
-CopyImportTargetBinaries(CmsHeader ${BIN_DIR})
-CopyImportTargetBinaries(FileVEILSupport ${BIN_DIR})
+CopyImportTargetBinaries(VEILCore ${BIN_DIR})
+CopyImportTargetBinaries(VEILCmsHeader ${BIN_DIR})
+CopyImportTargetBinaries(VEILFileSupport ${BIN_DIR})
 install_jar(com.tecsec.OpenVEIL ${BIN_DIR})
 
 add_custom_command(

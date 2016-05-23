@@ -29,7 +29,7 @@
 //
 #include <jni.h>
 #include "Favorite.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 #include "Session.h"
 

@@ -32,7 +32,7 @@
 #include "com_tecsec_OpenVEIL_Connector.h"
 #include "com_tecsec_OpenVEIL_GenericConnector.h"
 #include "com_tecsec_OpenVEIL_KeyVEILConnector.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 #include "Token.h"
 #include "Favorite.h"

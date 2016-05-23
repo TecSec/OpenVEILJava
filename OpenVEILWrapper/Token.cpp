@@ -29,7 +29,7 @@
 //
 #include <jni.h>
 #include "Token.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 
 Token::Token()

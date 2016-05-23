@@ -29,7 +29,7 @@
 //
 #include <jni.h>
 #include "Environment.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 
 JavaVM *cached_jvm;                                   // A pointer to the VM from which

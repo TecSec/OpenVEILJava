@@ -30,11 +30,11 @@
 #pragma once
 #include <jni.h>
 #include "com_tecsec_OpenVEIL_Session.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 #include "Favorite.h"
-#include "CmsHeader.h"
-#include "FileVEILSupport.h"
+#include "VEILCmsHeader.h"
+#include "VEILFileSupport.h"
 
 // Used in the file encrypt and decrypt routines
 class StatusClass : public IFileVEILOperationStatus, public tsmod::IObject

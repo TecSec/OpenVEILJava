@@ -29,7 +29,7 @@
 //
 #include <jni.h>
 #include "Session.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 
 Session::Session()

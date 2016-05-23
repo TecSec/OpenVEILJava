@@ -30,7 +30,7 @@
 #pragma once
 #include <jni.h>
 #include "com_tecsec_OpenVEIL_Favorite.h"
-#include "OpenVEIL.h"
+#include "VEIL.h"
 #include "handle.h"
 
 class Session;

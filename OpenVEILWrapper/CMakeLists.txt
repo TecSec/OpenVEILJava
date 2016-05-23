@@ -15,7 +15,7 @@ add_library(OpenVEILjavaWrapper SHARED
 	Favorite.h 
 	)
 
-TARGET_LINK_LIBRARIES(OpenVEILjavaWrapper OpenVEILCore CmsHeader FileVEILSupport)
+TARGET_LINK_LIBRARIES(OpenVEILjavaWrapper VEILCore VEILCmsHeader VEILFileSupport)
 set_target_properties(OpenVEILjavaWrapper PROPERTIES VERSION ${OPENVEIL_VERSION} SOVERSION ${OPENVEIL_SO_VERSION})
 add_dependencies(OpenVEILjavaWrapper com.tecsec.OpenVEIL GenJNIHeader)
 
